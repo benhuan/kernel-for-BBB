@@ -23,6 +23,15 @@ config TOUCHSCREEN_88PM860X
 	  To compile this driver as a module, choose M here: the
 	  module will be called 88pm860x-ts.
 
+config TOUCHSCREEN_FT5X0X
+        tristate "FocalTech ft5x0x touchscreen"
+        depends on I2C
+        default n
+        help
+          Say Y here if you have the FocalTech ft5x0x touchscreen.
+
+          If unsure, say N.
+
 config TOUCHSCREEN_ADS7846
 	tristate "ADS7846/TSC2046/AD7873 and AD(S)7843 based touchscreens"
 	depends on SPI_MASTER
