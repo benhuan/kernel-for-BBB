@@ -46,6 +46,7 @@ static struct cdev *uio_cdev;
 static DEFINE_IDR(uio_idr);
 static const struct file_operations uio_fops;
 
+static unsigned int count=0;
 /* Protect idr accesses */
 static DEFINE_MUTEX(minor_lock);
 
@@ -420,7 +421,8 @@ EXPORT_SYMBOL_GPL(uio_event_notify);
  * @dev_id: Pointer to the devices uio_device structure
  */
 static irqreturn_t uio_interrupt(int irq, void *dev_id)
-{
+{       
+        printk(KERN_INFO "uio_interrupt, irq: %4d , count: %4d \n", irq,count++);                                                            
 	struct uio_device *idev = (struct uio_device *)dev_id;
 	irqreturn_t ret = idev->info->handler(irq, idev->info);
 

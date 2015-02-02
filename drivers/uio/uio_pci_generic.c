@@ -28,7 +28,7 @@
 #define DRIVER_VERSION	"0.01.0"
 #define DRIVER_AUTHOR	"Michael S. Tsirkin <mst@redhat.com>"
 #define DRIVER_DESC	"Generic UIO driver for PCI 2.3 devices"
-
+static unsigned int count = 0;
 struct uio_pci_generic_dev {
 	struct uio_info info;
 	struct pci_dev *pdev;
@@ -43,7 +43,7 @@ to_uio_pci_generic_dev(struct uio_info *info)
 /* Interrupt handler. Read/modify/write the command register to disable
  * the interrupt. */
 static irqreturn_t irqhandler(int irq, struct uio_info *info)
-{
+{printk(KERN_INFO "irqhandler, irq: %4d , count: %4d \n", irq,count++);
 	struct uio_pci_generic_dev *gdev = to_uio_pci_generic_dev(info);
 
 	if (!pci_check_and_mask_intx(gdev->pdev))

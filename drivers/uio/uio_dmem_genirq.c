@@ -30,6 +30,7 @@
 
 #define DRIVER_NAME "uio_dmem_genirq"
 #define DMEM_MAP_ERROR (~0)
+static unsigned int count = 0;
 
 struct uio_dmem_genirq_platdata {
 	struct uio_info *uioinfo;
@@ -106,7 +107,7 @@ static int uio_dmem_genirq_release(struct uio_info *info, struct inode *inode)
 }
 
 static irqreturn_t uio_dmem_genirq_handler(int irq, struct uio_info *dev_info)
-{
+{ printk(KERN_INFO "uio_dmem_genirq_handler, irq: %4d , count: %4d \n", irq,count++);
 	struct uio_dmem_genirq_platdata *priv = dev_info->priv;
 
 	/* Just disable the interrupt in the interrupt controller, and

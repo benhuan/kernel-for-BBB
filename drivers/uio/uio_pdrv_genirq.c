@@ -29,7 +29,7 @@
 #include <linux/of_address.h>
 
 #define DRIVER_NAME "uio_pdrv_genirq"
-
+static unsigned int count = 0;
 struct uio_pdrv_genirq_platdata {
 	struct uio_info *uioinfo;
 	spinlock_t lock;
@@ -57,6 +57,7 @@ static int uio_pdrv_genirq_release(struct uio_info *info, struct inode *inode)
 
 static irqreturn_t uio_pdrv_genirq_handler(int irq, struct uio_info *dev_info)
 {
+        printk(KERN_INFO "uio_pdrv_genirq_handler, irq: %4d , count: %4d \n", irq,count++);
 	struct uio_pdrv_genirq_platdata *priv = dev_info->priv;
 
 	/* Just disable the interrupt in the interrupt controller, and

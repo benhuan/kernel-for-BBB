@@ -29,9 +29,10 @@
 
 #define DPM_HOST_INT_MASK	0xe600ffff
 #define DPM_HOST_INT_GLOBAL_EN	0x80000000
-
+static unsigned int count = 0;
 static irqreturn_t netx_handler(int irq, struct uio_info *dev_info)
 {
+  printk(KERN_INFO "netx_handler, irq: %4d , count: %4d \n", irq,count++);
 	void __iomem *int_enable_reg = dev_info->mem[0].internal_addr
 					+ DPM_HOST_INT_EN0;
 	void __iomem *int_status_reg = dev_info->mem[0].internal_addr

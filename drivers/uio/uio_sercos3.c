@@ -41,6 +41,7 @@
 
 /* Interrupt Status Register */
 #define ISR0_OFFSET 0x18
+static unsigned int count = 0;
 
 struct sercos3_priv {
 	u32 ier0_cache;
@@ -73,6 +74,7 @@ static void sercos3_enable_interrupts(struct uio_info *info,
 
 static irqreturn_t sercos3_handler(int irq, struct uio_info *info)
 {
+  printk(KERN_INFO "sercos3_handler, irq: %4d , count: %4d \n", irq,count++);
 	struct sercos3_priv *priv = info->priv;
 	void __iomem *isr0 = info->mem[3].internal_addr + ISR0_OFFSET;
 	void __iomem *ier0 = info->mem[3].internal_addr + IER0_OFFSET;
